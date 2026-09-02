@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: analysis_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: criminal_network_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+
+  hardhat-node:
+    build: ./blockchain
+    container_name: analysis_hardhat
+    ports:
+      - "8545:8545"
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: analysis_backend
+    environment:
+      DATABASE_URL: postgresql://postgres:postgrespassword@postgres:5432/criminal_network_db
+      JWT_SECRET: super_secret_jwt_key_998877
+      HARDHAT_RPC_URL: http://hardhat-node:8545
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      hardhat-node:
+        condition: service_started
+
+  frontend:
+    build: ./frontend
+    container_name: analysis_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

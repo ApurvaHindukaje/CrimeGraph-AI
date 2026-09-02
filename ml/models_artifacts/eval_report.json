@@ -1,0 +1,27 @@
+{
+  "evaluation_split": "temporal_test_split (steps 40-49)",
+  "num_test_labeled_nodes": 67,
+  "metrics": {
+    "precision": 0.15384615384615385,
+    "recall": 0.2857142857142857,
+    "f1_score": 0.2,
+    "roc_auc": 0.49047619047619045,
+    "pr_auc": 0.3127301940427636
+  },
+  "confusion_matrix": [
+    [
+      49,
+      11
+    ],
+    [
+      5,
+      2
+    ]
+  ],
+  "community_analysis": {
+    "num_communities": 9,
+    "modularity_score": 0.7677275133661051,
+    "high_risk_communities": 1
+  },
+  "framing_notice": "Identifies statistical patterns associated with illicit transaction categories in training data; does not determine legal guilt."
+}

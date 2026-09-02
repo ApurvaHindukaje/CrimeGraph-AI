@@ -1,0 +1,8 @@
+torch --extra-index-url https://download.pytorch.org/whl/cpu
+torch-geometric
+networkx
+python-louvain
+scikit-learn
+pandas
+numpy
+tqdm

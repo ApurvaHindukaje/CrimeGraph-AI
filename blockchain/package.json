@@ -1,0 +1,16 @@
+{
+  "name": "blockchain-evidence-registry",
+  "version": "1.0.0",
+  "description": "Smart Contract Evidence Registry for Criminal Network Analysis System",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "node": "hardhat node",
+    "deploy": "hardhat run scripts/deploy.js --network localhost"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  }
+}
