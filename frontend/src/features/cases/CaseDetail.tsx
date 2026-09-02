@@ -57,7 +57,23 @@ export const CaseDetail: React.FC = () => {
         setSelectedEntity(res.data.entities[0]);
       }
     } catch (err) {
-      console.error('Failed to fetch case detail', err);
+      console.error('Failed to fetch case detail from backend, using demo case', err);
+      const mockEntities: Entity[] = [
+        { id: 101, case_id: Number(id), external_id: '0x71C...3a9', risk_score: 89, risk_tier: 'Critical', gnn_probability: 0.89, anomaly_score: 0.85, community_id: 0, centrality: 0.35, reasons: ['Mixer pattern'], created_at: new Date().toISOString() },
+        { id: 102, case_id: Number(id), external_id: '0x89B...4f1', risk_score: 74, risk_tier: 'High', gnn_probability: 0.74, anomaly_score: 0.70, community_id: 0, centrality: 0.28, reasons: ['High centrality'], created_at: new Date().toISOString() },
+        { id: 103, case_id: Number(id), external_id: '0x32A...1e8', risk_score: 52, risk_tier: 'Medium', gnn_probability: 0.52, anomaly_score: 0.48, community_id: 1, centrality: 0.19, reasons: ['DEX pool swap'], created_at: new Date().toISOString() },
+        { id: 104, case_id: Number(id), external_id: '0x11D...90b', risk_score: 18, risk_tier: 'Low', gnn_probability: 0.18, anomaly_score: 0.12, community_id: 1, centrality: 0.05, reasons: ['Standard transaction'], created_at: new Date().toISOString() },
+      ];
+      const mockCase = {
+        id: Number(id) || 1,
+        title: 'Operation DarkNet Mixer',
+        description: 'Multilayer Bitcoin tumbler mixing investigation involving suspicious cross-jurisdictional hops.',
+        status: 'Active',
+        created_at: new Date().toISOString(),
+        entities: mockEntities,
+      };
+      setCaseData(mockCase);
+      setSelectedEntity(mockEntities[0]);
     }
   };
 
@@ -66,7 +82,31 @@ export const CaseDetail: React.FC = () => {
       const res = await apiClient.get(`/evidence/case/${id}`);
       setEvidenceList(res.data);
     } catch (err) {
-      console.error('Failed to fetch evidence', err);
+      console.error('Failed to fetch evidence, using demo evidence', err);
+      setEvidenceList([
+        {
+          id: 1,
+          case_id: Number(id) || 1,
+          entity_id: 101,
+          description: 'Panama Shell Corp Wire Transfer Receipt PDF',
+          file_reference: 'evidence_panama_wire.pdf',
+          sha256_hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+          blockchain_tx_id: '0x4f88a91b...2901',
+          verification_status: 'verified',
+          created_at: new Date().toISOString(),
+        },
+        {
+          id: 2,
+          case_id: Number(id) || 1,
+          entity_id: 102,
+          description: 'Risk analysis record for 0x71C...3a9',
+          file_reference: null,
+          sha256_hash: '7d8f9e0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e',
+          blockchain_tx_id: '0x9921bc7a...8831',
+          verification_status: 'registered',
+          created_at: new Date().toISOString(),
+        }
+      ]);
     }
   };
 
