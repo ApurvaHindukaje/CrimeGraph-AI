@@ -19,9 +19,9 @@
     ]
   ],
   "community_analysis": {
-    "num_communities": 9,
-    "modularity_score": 0.7677275133661051,
-    "high_risk_communities": 1
+    "num_communities": 8,
+    "modularity_score": 0.7704743140961634,
+    "high_risk_communities": 2
   },
   "framing_notice": "Identifies statistical patterns associated with illicit transaction categories in training data; does not determine legal guilt."
 }

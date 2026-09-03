@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { apiClient } from '../../shared';
 import { GraphView, Entity } from './GraphView';
 import { RiskBadge } from './RiskBadge';
+import { ExplainabilityPanel } from './ExplainabilityPanel';
 import { BlockchainVerifyBadge } from '../evidence';
 import { ArrowLeft, Play, Shield, FilePlus, Search, RefreshCw, Upload, FileText, X } from 'lucide-react';
 
@@ -267,6 +268,15 @@ export const CaseDetail: React.FC = () => {
                     Calculated Risk Score: <span className="text-indigo-600 font-bold">{selectedEntity.risk_score}/100</span>
                   </div>
                 </div>
+
+                {/* Louvain, IsolationForest, Centrality, GNN & GNNExplainer Panel */}
+                <ExplainabilityPanel
+                  reasons={selectedEntity.reasons}
+                  gnnProb={selectedEntity.gnn_probability}
+                  anomalyScore={selectedEntity.anomaly_score}
+                  communityId={selectedEntity.community_id}
+                  centrality={selectedEntity.centrality}
+                />
 
                 <button
                   onClick={handleRegisterStructuredEvidence}
